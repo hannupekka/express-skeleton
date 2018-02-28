@@ -1,4 +1,4 @@
-require('../utils/env')();
+require('../utils/env').checkEnv();
 const enableDestroy = require('server-destroy');
 const createApp = require('./app');
 const logger = require('../utils/logger');

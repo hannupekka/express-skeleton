@@ -1,3 +1,4 @@
+const { isTest } = require('../utils/env');
 const logger = require('../utils/logger');
 
 /**
@@ -8,13 +9,19 @@ const logger = require('../utils/logger');
  * @param {Function} next Callback
  */
 const errorLogger = (err, req, res, next) => {
-  const status = err.status ? err.status : 500;
-
-  if (status >= 400 && err.name !== 'JoiValidationError') {
-    logger.error(err.stack);
+  if (isTest) {
+    return next(err);
   }
 
-  next(err);
+  const status = err.status ? err.status : 500;
+  if (status >= 400) {
+    logger.error(`${err.status} ${err.message}`);
+    if (status >= 500) {
+      logger.error(err.stack);
+    }
+  }
+
+  return next(err);
 };
 
 module.exports = errorLogger;

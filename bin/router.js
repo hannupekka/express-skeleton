@@ -15,7 +15,8 @@ function createRouter() {
 
   // Routes.
 
-  router.get('/:name', dummyHttp.getGreeting);
+  router.get('/hello/:name', dummyHttp.getGreeting);
+  router.get('/error', dummyHttp.getError);
 
   return router;
 }

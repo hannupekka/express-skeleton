@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 const helmet = require('helmet');
 
-const { requestLogger } = require('../utils/express');
 const errorLogger = require('../middleware/errorLogger');
 const errorResponder = require('../middleware/errorResponder');
 const createRouter = require('./router');
@@ -17,7 +16,6 @@ const createApp = () => {
   app.use(bodyParser.json());
   app.use(compression());
   app.use(helmet());
-  app.use(requestLogger);
 
   // Initialize routes
   const router = createRouter();

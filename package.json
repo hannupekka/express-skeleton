@@ -6,16 +6,20 @@
     "url": "https://github.com/hannupekka/express-skeleton.git"
   },
   "engines": {
-    "node": "8.9.0"
+    "node": ">=9.0.0"
   },
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "ban": "ban",
     "dev": "nodemon bin/index.js",
-    "start": "node bin/index.js",
-    "knex": "knex",
+    "knex:down": "knex migrate:rollback",
     "knex:up": "knex migrate:latest",
-    "knex:down": "knex migrate:rollback"
+    "knex": "knex",
+    "lint": "eslint .",
+    "prepush": "npm run lint && npm run ban && npm run test",
+    "start": "node bin/index.js",
+    "test": "NODE_ENV=test jest"
   },
   "author": "Hannu-Pekka Heinäjärvi <hannupekka@gmail.com>",
   "license": "MIT",
@@ -37,9 +41,13 @@
     "winston": "^2.4.0"
   },
   "devDependencies": {
+    "ban-sensitive-files": "^1.9.2",
     "eslint": "^4.10.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-no-async-without-await": "^1.2.0"
+    "eslint-plugin-no-async-without-await": "^1.2.0",
+    "husky": "^0.14.3",
+    "jest": "^22.4.2",
+    "supertest": "^3.0.0"
   }
 }

@@ -34,13 +34,7 @@ const createJsonRoute = (func, responseHandler) => (req, res, next) => {
     }
 
     if (_.isFunction(responseHandler)) {
-      valuePromise.then(data => responseHandler(data, req, res, next)).catch(err => {
-        if (err.status) {
-          return res.sendStatus(err.status);
-        }
-
-        return next(err);
-      });
+      valuePromise.then(data => responseHandler(data, req, res, next)).catch(err => next(err));
     } else {
       valuePromise.catch(next);
     }

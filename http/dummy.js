@@ -8,6 +8,13 @@ const getGreeting = createRoute(req => {
   return dummyCore.getGreeting(name);
 });
 
+const getError = createRoute(() => {
+  const error = new Error('Error message');
+  error.status = 418;
+  throw error;
+});
+
 module.exports = {
   getGreeting,
+  getError,
 };

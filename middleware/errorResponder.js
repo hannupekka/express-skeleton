@@ -8,11 +8,12 @@ const http = require('http');
  * @param {Function} next Callback
  */
 
+// eslint-disable-next-line
 const errorResponder = (err, req, res, next) => {
   const status = err.status ? err.status : 500;
   const httpMessage = http.STATUS_CODES[status];
 
-  const message = status < 500 ? `${httpMessage}: ${err.message}` : httpMessage;
+  const message = status < 500 ? err.message : httpMessage;
   const response = { message };
   if (err.data) {
     response.errors = err.data;
